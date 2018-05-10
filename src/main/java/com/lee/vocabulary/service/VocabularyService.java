@@ -15,11 +15,16 @@ public class VocabularyService {
 	private VocabularyMapper vocabularyMapper;
 	
 	//取得一個隨機中文單字
-	public String getChineseWord() {
-		List<String> chinesewords = vocabularyMapper.getAllChineseWords();
+	public String getChineseword() {
+		List<String> chinesewords = vocabularyMapper.getAllChinesewords();
 		Random random = new Random();
 		int randomIndex = random.nextInt(chinesewords.size());
-		String s = chinesewords.get(randomIndex);
-		return s;
+		String chineseword = chinesewords.get(randomIndex);
+		return chineseword;
+	}
+	
+	public String getEnglishwordFromChineseword(String chineseword) {
+		String englishword = vocabularyMapper.getEnglishwordFromChineseword(chineseword);
+		return englishword;
 	}
 }

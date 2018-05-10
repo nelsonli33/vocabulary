@@ -9,6 +9,8 @@ import com.lee.vocabulary.entity.Vocabulary;
 public interface VocabularyMapper {
 
 	@Select("SELECT chineseword FROM words")
-	List<String> getAllChineseWords();
+	List<String> getAllChinesewords();
 	
+	@Select("SELECT englishword FROM words WHERE chineseword = #{chineseword}")
+	String getEnglishwordFromChineseword(String chineseword);
 }

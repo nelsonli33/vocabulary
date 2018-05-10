@@ -67,17 +67,23 @@
 		}
 
 		 /* NOTE: The styles were added inline because Prefixfree needs access to your styles and they must be inlined if they are on local disk! */
-		 .input-vocabulary {
+		 #input-vocabulary {
 		  display: block;
 		  margin: 2em auto;
 		  border: none;
 		  padding: 0;
-		  width: 10.5ch;
-		  background: repeating-linear-gradient(90deg, dimgrey 0, dimgrey 1ch, transparent 0, transparent 1.5ch) 0 100%/ 10ch 2px no-repeat;
+		  width: 1.5ch;
+		  background: 
+		    repeating-linear-gradient(90deg, 
+		        dimgrey 0, 
+		        dimgrey 1ch, 
+		        transparent 0, 
+		        transparent 1.5ch) 
+		      0 100%/100% 2px no-repeat;
 		  font: 5ch droid sans mono, consolas, monospace;
 		  letter-spacing: 0.5ch;
 		}
-		.input-vocabulary:focus {
+		#input-vocabulary:focus {
 		  outline: none;
 		  color: dodgerblue;
 		}
@@ -109,14 +115,18 @@
 			
 			<form action="vocabulary" method="get">
 				<div class="input-user">
-					<input type="text" maxlength='7' value='012345' name="answer" class="input-vocabulary"/>
+					<input type="text" th:maxlength='${englishword_len}' name="answer" id="input-vocabulary"/>
 					<input type="submit" value="送出" />
 				</div>
 			</form>
 		</div>
 
+<script>
+	var character_n = $('#input-vocabulary').attr('maxlength');
+	var character_len = character_n * 56; // 1.5ch (一個字元+間隔) = 56px   
+	$('#input-vocabulary').css("width",character_len);
 	
 	
-
+</script>
 </body>
 </html>
