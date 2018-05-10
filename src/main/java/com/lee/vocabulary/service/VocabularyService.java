@@ -6,6 +6,7 @@ import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.lee.vocabulary.entity.Vocabulary;
 import com.lee.vocabulary.mapper.VocabularyMapper;
 
 @Service
@@ -14,17 +15,15 @@ public class VocabularyService {
 	@Autowired
 	private VocabularyMapper vocabularyMapper;
 	
-	//取得一個隨機中文單字
-	public String getChineseword() {
-		List<String> chinesewords = vocabularyMapper.getAllChinesewords();
+	// 亂數取得一個單字
+	public Vocabulary getRandomVacabulary() {
+		List<Vocabulary> vocabulary_list = vocabularyMapper.getAllVocabulary();
 		Random random = new Random();
-		int randomIndex = random.nextInt(chinesewords.size());
-		String chineseword = chinesewords.get(randomIndex);
-		return chineseword;
+		int randomIndex = random.nextInt(vocabulary_list.size());
+		Vocabulary vocabulary = vocabulary_list.get(randomIndex);
+		return vocabulary;
 	}
 	
-	public String getEnglishwordFromChineseword(String chineseword) {
-		String englishword = vocabularyMapper.getEnglishwordFromChineseword(chineseword);
-		return englishword;
-	}
+	
+	
 }

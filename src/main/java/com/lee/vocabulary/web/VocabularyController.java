@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.lee.vocabulary.entity.Vocabulary;
 import com.lee.vocabulary.service.VocabularyService;;
 
 @Controller
@@ -33,8 +34,9 @@ public class VocabularyController {
 		}
 		
 		// 產生一個隨機單字
-		String chieseword = vocabularyService.getChineseword();
-		String englishword = vocabularyService.getEnglishwordFromChineseword(chieseword);
+		Vocabulary vocabulary = vocabularyService.getRandomVacabulary();
+		String chieseword = vocabulary.getChineseword();
+		String englishword = vocabulary.getEnglishword();
 		
 		System.out.println(chieseword);
 		model.addAttribute("chineseword", chieseword);
@@ -47,11 +49,14 @@ public class VocabularyController {
 	public String getVocabulary(Model model) {
 	
 		// 產生一個隨機單字
-		String chieseword = vocabularyService.getChineseword();
-		String englishword = vocabularyService.getEnglishwordFromChineseword(chieseword);
+		Vocabulary vocabulary = vocabularyService.getRandomVacabulary();
+		String chieseword = vocabulary.getChineseword();
+		String englishword = vocabulary.getEnglishword();
+		
 		System.out.println(chieseword);
 		System.out.println(englishword);
 		model.addAttribute("chineseword", chieseword);
+		model.addAttribute("englishword_len", englishword.length());
 		return "vocabulary-test";
 	}
 }
