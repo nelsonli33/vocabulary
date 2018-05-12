@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>單字卡訓練</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<!-- Popper JS -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
+	
+
+	<style type="text/css">
+
+
+		.username {
+			font-size: 1.5em;
+		}
+
+
+		.card{
+			background-image: url(images/volume-down.svg);
+			background-repeat: no-repeat;
+			background-size: 30px;
+			background-position: top right;	
+			padding: 40px;		
+		}
+
+	
+	
+	
+
+		 /* NOTE: The styles were added inline because Prefixfree needs access to your styles and they must be inlined if they are on local disk! */
+		 #input-vocabulary {
+		  display: block;
+		  margin-top: 30px;
+		  margin-bottom: 30px;
+		  border: none;
+		  padding: 0;
+		  width: 1.5ch;
+		  background: 
+		    repeating-linear-gradient(90deg, 
+		        dimgrey 0, 
+		        dimgrey 1ch, 
+		        transparent 0, 
+		        transparent 1.5ch) 
+		      0 100%/100% 2px no-repeat;
+		  font: 5ch droid sans mono, consolas, monospace;
+		  letter-spacing: 0.5ch;
+		}
+
+		#input-vocabulary:focus {
+		  outline: none;
+		}
+
+		
+	</style>
+
+	<!-- input field with underlines under each character  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+
+</head>
+<body>
+	
+
+
+	<div th:replace="fragments/navbar :: navbar"></div>
+	
+	<main class="py-5">
+		
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-3 d-flex flex-column">
+					
+					  <p class="text-center">Hello, 
+						<span class="username" th:text="${session.username}">王小明</span>
+					  </p>
+					  
+
+					<br>
+					<div class="progress">
+						<div class="progress-section">
+							<p>lorem</p>
+						</div>
+						<div class="progress-section">
+							
+						</div>
+						<div class="progress-section">
+							
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-9 pr-3">
+
+				  <div class="container">
+					 <div class="d-flex flex-column align-items-center">
+
+
+						<div class="card bg-light w-75">
+						  	<div class="card-body">
+						  		<p class="text-dark text-center" style="font-size: 2rem;" th:text="${chineseword}">蘋果</p>
+						  	</div>
+						</div>
+
+					<section>
+						<div class="container">
+						  <div class="d-flex justify-content-center align-items-center">
+							<input type="hidden" th:value="${englishword}" id="question">
+							<input type="text" th:maxlength='${englishword_len}' 
+									id="input-vocabulary"/>	
+						  </div>
+						</div> 
+					</section>	
+
+					<section>
+						<div class="container">
+							<div class="d-flex justify-content-center">
+								<div id="right-answer"></div>
+							</div>
+						</div>
+					</section>
+					
+					<section>
+						<div class="d-flex justify-content-center">
+						  
+							<div class="mr-2">
+								<button type="button" class="btn btn-dark" 
+								id="btn-checkAnswer" onclick="checkAnswer()">確認</button>
+							</div>
+							<form th:action="@{/vocabulary/write-eng}" method="post" id="form-vocabulary">
+								<button type="submit" class="form-control bg-light" id="btn-next-question"/>請按任意鍵繼續
+							</form>
+						</div>
+					</section>
+					 </div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</main>
+		<br>
+	
+
+	
+
+<script>
+	var character_n = $('#input-vocabulary').attr('maxlength');
+	var character_len = character_n * 56; // 1.5ch (一個字元+間隔) = 56px   
+	$('#input-vocabulary').css("width",character_len);
+	
+	$('#form-vocabulary').hide();
+	
+	var one_click = false;
+	$('#input-vocabulary').keypress(function (e) {
+	 	var key = e.which;
+	 	if(key == 13 &! one_click)  // the enter key code
+	 	 {
+	 	   $('#btn-checkAnswer').click();
+		   one_click = true; 
+		 }
+	}); 
+
+
+	// 使用 jQuery 驗證使用者是否回答正確
+	function checkAnswer(){
+			var answer = $('#input-vocabulary').val();
+			var question = $('#question').val();
+
+			if(answer.toUpperCase() === question.toUpperCase()){
+
+				$("#input-vocabulary").css("color","green");
+				$("<i class='fas fa-check-circle fa-3x' style='color:#093;'></i>").insertAfter($('#input-vocabulary'));
+			} else {
+				$("#input-vocabulary").css("color","red");
+				$("<i class='fas fa-times-circle fa-3x' style='color:Tomato'></i>").insertAfter($('#input-vocabulary'));
+				$('#right-answer').append('<p class="text-center">正確答案：'+question+'</p>')
+			}
+			
+			$('#btn-checkAnswer').hide();
+			$('#form-vocabulary').show();
+	}
+	
+	// 傳給伺服器用來記錄單字正確或錯誤次數	
+	$('#form-vocabulary').submit(function(){
+		var answer = $('#input-vocabulary').val();
+		var question = $('#question').val();
+		$('#form-vocabulary').append(
+			"<input type='hidden' name='question' value='"+question+"' />"+
+			"<input type='hidden' name='answer' value='"+answer+"' />"
+		);
+	});
+
+</script>
+
+<!-- 一次載入所有的圖示 -->
+<script defer src="https://use.fontawesome.com/releases/v5.0.0/js/all.js"></script>
+
+</body>
+</html>

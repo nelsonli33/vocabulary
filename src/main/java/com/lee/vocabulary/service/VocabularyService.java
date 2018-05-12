@@ -23,7 +23,23 @@ public class VocabularyService {
 		Vocabulary vocabulary = vocabulary_list.get(randomIndex);
 		return vocabulary;
 	}
+
 	
+	public Vocabulary getVacabularyFromEnglish(String englishword) {
+		Vocabulary vocabulary = vocabularyMapper.getVacabularyFromEnglish(englishword);
+		return vocabulary;
+	}
+
+
+	public void addVababularyOneRightNum(int id) {
+		vocabularyMapper.addVacabularyOneRightNum(id);
+	}
+	
+	public void addVababularyOneWrongNum(int id) {
+		vocabularyMapper.addVacabularyOneWrongNum(id);
+	}
+
+
 	
 	
 }
