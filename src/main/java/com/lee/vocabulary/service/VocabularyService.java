@@ -26,8 +26,7 @@ public class VocabularyService {
 
 	
 	public Vocabulary getVacabularyFromEnglish(String englishword) {
-		Vocabulary vocabulary = vocabularyMapper.getVacabularyFromEnglish(englishword);
-		return vocabulary;
+		 return vocabularyMapper.getVacabularyFromEnglish(englishword);
 	}
 
 

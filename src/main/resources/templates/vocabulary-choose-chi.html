@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>單字卡訓練</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<!-- Popper JS -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
+
+	<style>
+		body{
+			 background-color: rgb(236, 236, 236);
+		}
+	</style>
+</head>
+<body>
+
+
+	<div th:replace="fragments/navbar :: navbar"></div>
+
+	<main class="py-5">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-3 d-flex flex-column">
+					<p class="text-center">Hello, 
+					   <span class="username" th:text="${session.username}">王小明</span>
+					</p>
+					<br>
+					<div class="progress">
+						<div class="progress-section">
+							<p>lorem</p>
+						</div>
+						<div class="progress-section">
+							
+						</div>
+						<div class="progress-section">
+							
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-9 pr-3">
+					<div class="container">
+						
+						<div class="d-flex flex-column align-items-center">
+							<div class="card bg-light w-75">
+						  	<div class="card-body">
+						  		<p class="text-dark text-center" style="font-size: 2rem;" th:text="${question}">Apple</p> <!-- th:text="${chineseword}" -->
+						  	</div>
+							</div>
+						</div>
+
+
+						<section class="answersLayout">
+							
+							<div class="row justify-content-center my-5">
+
+							<form class="form-inline" >	
+								<div class="col-md-6 d-flex justify-content-center">
+									<div class="form-check form-check-inline">
+									  <label class="form-check-label">
+									   <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"
+									   th:text="${option_chi1}">
+									   
+									  </label>
+									</div>
+								</div>
+								<div class="col-md-6 d-flex justify-content-start">
+									<div class="form-check form-check-inline">
+									  <label class="form-check-label">
+									    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"
+									    th:text="${option_chi2}"> 
+									  </label>
+									</div>
+								</div>
+								<div class="w-100"></div>
+								<div class="col-md-6 d-flex mt-4 justify-content-center ">
+									<div class="form-check form-check-inline">
+									  <label class="form-check-label">
+									    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3"
+									    th:text="${option_chi3}"> 
+									  </label>
+									</div>
+								</div>
+								<div class="col-md-6 d-flex mt-4 justify-content-start">
+									<div class="form-check form-check-inline">
+									  <label class="form-check-label">
+									    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="option4"
+									    th:text="${option_chi4}"> 
+									   </label>
+									</div>
+								</div>
+
+								<div class="col d-flex mt-5 justify-content-center">
+									<button type="submit" class="btn btn-primary btn-lg btn-block w-25">
+										回答
+									</button>
+								</div>
+							</form>
+
+							</div>                
+						</section>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</main>
+
+</body>
+</html>
