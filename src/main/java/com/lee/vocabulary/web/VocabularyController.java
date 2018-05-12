@@ -86,9 +86,15 @@ public class VocabularyController {
 	}
 	
 	
-	
+	/*
+	 *  @param userQuestion 使用者遇到的問題
+	 *  
+	 */
 	@PostMapping("/vocabulary/choose-chi")
-	public String vocabulary_choose_chinese(@RequestParam("username") String username,
+	public String vocabulary_choose_chinese(
+			@RequestParam(required=false,name="username") String username,
+			@RequestParam(required=false,name="inlineRadioOptions") String userAnswer,
+			@RequestParam(required=false,name="question") String userQuestion,
 			HttpSession httpSession,
 			Model model) {
 		
@@ -108,8 +114,6 @@ public class VocabularyController {
 			vocabulary_set.add(vocabulary);
 		}
 
-		
-		
 		String[] abcd = {"A","B","C","D"}; 
 		System.out.println("--vocabulary_set內容--");
 		int count = 0;
@@ -123,22 +127,45 @@ public class VocabularyController {
 			// option_chi1
 			count++;
 			model.addAttribute("option_chi"+count, buffer.toString());
+			model.addAttribute("option_val"+count, v.getEnglishword());
 		}
 		System.out.println("-------------------");
 		
 		
 		// 選出四個選項其中一個當作題目
 		Random random = new Random();
-		int randomIndex = random.nextInt(vocabulary_set.size()); 
+		int randomIndex = random.nextInt(vocabulary_set.size());
 		
 		List<Vocabulary> vocabulary_list = new ArrayList<Vocabulary>();
 		for(Vocabulary v : vocabulary_set) {
 			vocabulary_list.add(v);
 		}
 		
-		String question = vocabulary_list.get(randomIndex).getEnglishword();
-		System.out.println(question+randomIndex);
-		model.addAttribute("question",question);
+		System.out.println(randomIndex+abcd[randomIndex]);
+		
+
+		
+		Vocabulary question_voc = vocabulary_list.get(randomIndex);
+		// (B) [名詞] 鳥
+		StringBuffer questionBuffer = new StringBuffer(" (");
+		String question_chi = question_voc.getChineseword();
+		questionBuffer.append(abcd[randomIndex]+") ").append(question_chi);
+		String question_eng = question_voc.getEnglishword();
+		model.addAttribute("question_chi",questionBuffer.toString());
+		model.addAttribute("question_eng",question_eng);
+		
+		
+		// 判斷使用者回答是否正確 正確增加單字正確次數;反之增加單字錯誤次數
+		if(userQuestion != null && userAnswer != null) {
+					
+			Vocabulary theVocabulary = vocabularyService.getVacabularyFromEnglish(userQuestion);
+			
+			if(userQuestion.equalsIgnoreCase(userAnswer)) {
+					vocabularyService.addVababularyOneRightNum(theVocabulary.getId());
+			} else {
+					vocabularyService.addVababularyOneWrongNum(theVocabulary.getId());
+			}
+		}
 		
 		return "vocabulary-choose-chi";
 	}

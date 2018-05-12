@@ -54,7 +54,7 @@
 						<div class="d-flex flex-column align-items-center">
 							<div class="card bg-light w-75">
 						  	<div class="card-body">
-						  		<p class="text-dark text-center" style="font-size: 2rem;" th:text="${question}">Apple</p> <!-- th:text="${chineseword}" -->
+						  		<p class="text-dark text-center" style="font-size: 2rem;" th:text="${question_eng}" id="question">Apple</p> <!-- th:text="${chineseword}" -->
 						  	</div>
 							</div>
 						</div>
@@ -64,11 +64,11 @@
 							
 							<div class="row justify-content-center my-5">
 
-							<form class="form-inline" >	
+							<form class="form-inline" th:action="@{/vocabulary/choose-chi}" method="post">	
 								<div class="col-md-6 d-flex justify-content-center">
 									<div class="form-check form-check-inline">
 									  <label class="form-check-label">
-									   <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"
+									   <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" th:value="${option_val1}"
 									   th:text="${option_chi1}">
 									   
 									  </label>
@@ -77,7 +77,7 @@
 								<div class="col-md-6 d-flex justify-content-start">
 									<div class="form-check form-check-inline">
 									  <label class="form-check-label">
-									    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"
+									    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" th:value="${option_val2}"
 									    th:text="${option_chi2}"> 
 									  </label>
 									</div>
@@ -86,7 +86,7 @@
 								<div class="col-md-6 d-flex mt-4 justify-content-center ">
 									<div class="form-check form-check-inline">
 									  <label class="form-check-label">
-									    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3"
+									    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" th:value="${option_val3}"
 									    th:text="${option_chi3}"> 
 									  </label>
 									</div>
@@ -94,17 +94,31 @@
 								<div class="col-md-6 d-flex mt-4 justify-content-start">
 									<div class="form-check form-check-inline">
 									  <label class="form-check-label">
-									    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="option4"
+									    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" th:value="${option_val4}"
 									    th:text="${option_chi4}"> 
 									   </label>
 									</div>
 								</div>
-
-								<div class="col d-flex mt-5 justify-content-center">
-									<button type="submit" class="btn btn-primary btn-lg btn-block w-25">
+							
+								<div id="rightans">
+									<div class="col mt-5">
+										<p>正確答案:<span class="text-danger" th:text=${question_chi}></span></p>
+									</div>		
+								</div>
+								
+								<div class="col mt-5 ml-5">
+									<button type="button" class="btn btn-primary btn-lg btn-block w-25 ml-5" onclick="checkAnswer()" id="btn-checkAnswer">
 										回答
 									</button>
+									<button type="submit" class="btn btn-primary btn-lg btn-block w-50"  id="btn-nextQuestion">
+										請按任意鍵繼續
+									</button>
+									<input type="hidden" th:value="${question_eng}" name="question" />
 								</div>
+							
+							</section>
+								
+								
 							</form>
 
 							</div>                
@@ -115,6 +129,34 @@
 		</div>
 
 	</main>
+
+<script>
+	$('#rightans').hide();
+	$('#btn-nextQuestion').hide();
+	
+
+	$('input[name*=inlineRadioOptions]').on('click', function(){
+			$('#btn-checkAnswer').focus();
+	});
+
+
+	function checkAnswer(){
+		var question = $('#question').text();
+		var userAnswer = $('input[name*=inlineRadioOptions]:checked').val();
+		
+		if(question.toUpperCase() === userAnswer.toUpperCase()){
+			alert("正確");
+		} else {
+			alert("錯誤");
+			$('#rightans').show();
+		}
+
+		$('#btn-checkAnswer').hide();
+		$('#btn-nextQuestion').show(function(){
+			$('#btn-nextQuestion').focus();
+		});
+	}
+</script>
 
 </body>
 </html>
