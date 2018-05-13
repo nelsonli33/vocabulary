@@ -50,7 +50,7 @@ public class VocabularyController {
 			@RequestParam(required=false,name="answer") String answer,
 			HttpSession httpSession,Model model) {
 		
-		// 判斷使用者第一次登入加入 cookie，否則直接取用session值
+		// 判斷使用者第一次登入加入 session 作用域，否則直接取用session值
 		if(username != null) {
 			model.addAttribute("username", username);
 			httpSession.setAttribute("username", username);
@@ -60,18 +60,11 @@ public class VocabularyController {
 		
 		// 判斷使用者回答是否正確 正確增加單字正確次數;反之增加單字錯誤次數
 		if(question != null && answer != null) {
-			
-			Vocabulary theVocabulary = vocabularyService.getVacabularyFromEnglish(question);
-			
-			if(question.equalsIgnoreCase(answer)) {
-				vocabularyService.addVababularyOneRightNum(theVocabulary.getId());
-			} else {
-				vocabularyService.addVababularyOneWrongNum(theVocabulary.getId());
-			}
+			vocabularyService.checkUserAnswer(question,answer);
 		}
 		
 		// 產生一個隨機單字
-		Vocabulary vocabulary = vocabularyService.getRandomVacabulary();
+		Vocabulary vocabulary = vocabularyService.getRandomVocabulary();
 		String chieseword = vocabulary.getChineseword();
 		String englishword = vocabulary.getEnglishword();
 		
@@ -86,10 +79,7 @@ public class VocabularyController {
 	}
 	
 	
-	/*
-	 *  @param userQuestion 使用者遇到的問題
-	 *  
-	 */
+	
 	@PostMapping("/vocabulary/choose-chi")
 	public String vocabulary_choose_chinese(
 			@RequestParam(required=false,name="username") String username,
@@ -107,13 +97,9 @@ public class VocabularyController {
 		}
 		
 		// 產生四個隨機單字 放入不重複Set集合
-		Set<Vocabulary> vocabulary_set = new HashSet<Vocabulary>();
+		Set<Vocabulary> vocabulary_set = vocabularyService.getRandomFourVocabulary();
 		
-		while(vocabulary_set.size() < 4 ) {
-			Vocabulary vocabulary = vocabularyService.getRandomVacabulary();
-			vocabulary_set.add(vocabulary);
-		}
-
+		
 		String[] abcd = {"A","B","C","D"}; 
 		System.out.println("--vocabulary_set內容--");
 		int count = 0;
@@ -122,8 +108,8 @@ public class VocabularyController {
 			StringBuffer buffer = new StringBuffer("(");
 			buffer.append(abcd[count]+") ");
 			buffer.append(v.getChineseword());
-			System.out.println(buffer.toString());
 			
+			System.out.println(buffer.toString());
 			// option_chi1
 			count++;
 			model.addAttribute("option_chi"+count, buffer.toString());
@@ -141,9 +127,7 @@ public class VocabularyController {
 			vocabulary_list.add(v);
 		}
 		
-		System.out.println(randomIndex+abcd[randomIndex]);
-		
-
+		//System.out.println(randomIndex+abcd[randomIndex]);
 		
 		Vocabulary question_voc = vocabulary_list.get(randomIndex);
 		// (B) [名詞] 鳥
@@ -157,19 +141,15 @@ public class VocabularyController {
 		
 		// 判斷使用者回答是否正確 正確增加單字正確次數;反之增加單字錯誤次數
 		if(userQuestion != null && userAnswer != null) {
-					
-			Vocabulary theVocabulary = vocabularyService.getVacabularyFromEnglish(userQuestion);
-			
-			if(userQuestion.equalsIgnoreCase(userAnswer)) {
-					vocabularyService.addVababularyOneRightNum(theVocabulary.getId());
-			} else {
-					vocabularyService.addVababularyOneWrongNum(theVocabulary.getId());
-			}
+			vocabularyService.checkUserAnswer(userQuestion,userAnswer);
 		}
-		
+	
 		return "vocabulary-choose-chi";
 	}
+	
+}
+	
 		
 	
 
-}
+
