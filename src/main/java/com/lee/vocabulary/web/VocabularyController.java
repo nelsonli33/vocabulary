@@ -147,6 +147,15 @@ public class VocabularyController {
 		return "vocabulary-choose-chi";
 	}
 	
+	
+	
+	@GetMapping("/vocabulary/errorAnswer")
+	public String vocabulary_error_anser(Model model) {
+		List<Vocabulary> vocabularys = vocabularyService.getTopTenErrorAnswerVocabulary();
+		model.addAttribute("vocabularys",vocabularys);
+		return "vocabulary_error_answer";
+	}
+	
 }
 	
 		

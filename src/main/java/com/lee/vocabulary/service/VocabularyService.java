@@ -41,7 +41,12 @@ public class VocabularyService {
 			vocabularyMapper.addVacabularyOneWrongNum(id);
 	}
 		
-		
+	public List<Vocabulary> getTopTenErrorAnswerVocabulary(){
+		return vocabularyMapper.getTopTenErrorAnswerVocabulary();
+	}
+	
+	
+	
 	// 判斷使用者回答是否正確 正確增加單字正確次數;反之增加單字錯誤次數
 	public void checkUserAnswer(String question, String userAnswer) {
 		
@@ -65,6 +70,8 @@ public class VocabularyService {
 		}
 		return vocabulary_set;
 	}
+	
+	
 
 	
 	

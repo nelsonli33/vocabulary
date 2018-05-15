@@ -20,4 +20,8 @@ public interface VocabularyMapper {
 
 	@Update("UPDATE words SET wrong_num = wrong_num + 1 WHERE id = #{id}")
 	void addVacabularyOneWrongNum(int id);
+	
+	
+	@Select("SELECT * FROM words ORDER BY wrong_num DESC limit 10")
+	List<Vocabulary> getTopTenErrorAnswerVocabulary();
 }
