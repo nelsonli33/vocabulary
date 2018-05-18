@@ -1,9 +1,8 @@
 package com.lee.vocabulary.web;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
@@ -14,7 +13,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.lee.vocabulary.entity.Vocabulary;
 import com.lee.vocabulary.service.VocabularyService;;
@@ -29,6 +32,7 @@ public class VocabularyController {
 	public String home() {
 		return "index";
 	}
+	
 	
 	@PostMapping("/vocabulary")
 	public String handleURL(@RequestParam(required=false,name="options") String testType) {
@@ -46,8 +50,6 @@ public class VocabularyController {
 	@PostMapping("/vocabulary/write-eng")
 	public String vocabulary_write_english(
 			@RequestParam(required=false,name="username") String username,
-			@RequestParam(required=false,name="question") String question,
-			@RequestParam(required=false,name="answer") String answer,
 			HttpSession httpSession,Model model) {
 		
 		// 判斷使用者第一次登入加入 session 作用域，否則直接取用session值
@@ -58,25 +60,35 @@ public class VocabularyController {
 			username = (String) httpSession.getAttribute("username");
 		}
 		
-		// 判斷使用者回答是否正確 正確增加單字正確次數;反之增加單字錯誤次數
+		return "vocabulary-write-eng";
+	}
+	
+	// 判斷使用者的回答 增加資料庫中的單字對錯次數
+	@RequestMapping(name="/vocabulary/api/addVocabularyRightOrWrongNum",method=RequestMethod.POST)
+	@ResponseBody
+	public boolean addVocabularyRightOrWrongNum(
+			@RequestBody Map<String, String> jsonStr) {
+		
+		String question = jsonStr.get("question");
+		String answer = jsonStr.get("answer");
+		System.out.println(answer);
+		System.out.println(question);
+
 		if(question != null && answer != null) {
 			vocabularyService.checkUserAnswer(question,answer);
 		}
 		
-		// 產生一個隨機單字
-		Vocabulary vocabulary = vocabularyService.getRandomVocabulary();
-		String chieseword = vocabulary.getChineseword();
-		String englishword = vocabulary.getEnglishword();
-		
-		System.out.println(chieseword);
-		System.out.println(englishword);
-		
-		model.addAttribute("chineseword", chieseword);
-		model.addAttribute("englishword", englishword);
-		model.addAttribute("englishword_len", englishword.length());
-		
-		return "vocabulary-write-eng";
+		return true;
 	}
+	
+	// 產生亂數單字 api
+	@ResponseBody
+	@RequestMapping(value="/vocabulary/api/getRandomWord", method = RequestMethod.GET, produces = { "application/json" })
+	public Vocabulary getRandomWord() {
+		return vocabularyService.getRandomVocabulary();
+	}
+	
+	
 	
 	
 	

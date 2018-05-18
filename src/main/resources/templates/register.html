@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>E-mail 會員註冊</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<!-- Popper JS -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>	
+
+	<style>
+		body{
+			background-color: #F5F5F5;
+		    color: #898989;
+		    text-align: center;
+		    margin: 0 auto;
+		    padding: 0;
+		    font-family: "微軟正黑體", Arial, sans-serif;
+		}
+
+		.basic {
+			width: 980px;
+			margin: 30px auto;
+		    padding: 0;
+		}
+
+	
+
+		.box {
+			background-color: #fff;
+			box-shadow: 1px 1px 4px 1px #ccc;
+			width: 100%;
+			margin-bottom: 12px;
+			border-radius: 6px;
+			padding: 8px 0;
+			display: inline-block;
+			text-align: left;
+			font-family: "微軟正黑體", Arial, sans-serif;
+		}
+
+		.box-title {
+		    display: inline-block;
+		    position: relative;
+		    width: 100%;
+		    height: 42px;
+		 }
+
+		 .table {
+		    display: table;
+		    border-collapse: separate;
+		    border-spacing: 2px;
+		  }
+
+		.btn {
+		    box-shadow: 2px 2px 4px -1px #ccc;
+		    display: inline-block;
+		    width: auto;
+		    padding: 10px 40px;
+		    border: 1px solid white;
+		    background: #3498db;
+		    color: white;
+		    border-radius: 4px;
+		    position: relative;
+		    font-size: 1.2em;
+		}
+
+		.use-email {
+			color: black;
+			font-size: 30px;
+			font-weight: bold;
+			text-align: center;
+			padding-top: 2px;
+		}
+		  
+	</style>
+		
+</head>
+<body>
+	
+	<div th:replace="fragments/navbar :: navbar"></div>
+	
+   <div class="basic">	
+	<div class="box register">
+	   <div class="container">
+			<form action="#" method="post">
+				<table cellpadding="10">
+					<tbody>
+						<tr>
+							<td class="use-email" colspan="2">E-mail 會員註冊</td>
+						</tr>
+						<tr>
+							<td>姓名：</td>
+							<td><input type="text" id="username"/></td>
+						</tr>
+						<tr>
+							<td>帳號(Email)：</td>
+							<td><input type="email" id="emailInput" maxlength="50" /></td>
+						</tr>
+						<tr>
+							<td>密碼：</td>
+							<td><input type="password" id="passwordInput" maxlength="35"/></td>
+						</tr>
+						<tr>
+							<td>確認密碼：</td>
+							<td><input type="password" id="repasswordInput" maxlength="35"/></td>
+						</tr>
+						<tr>
+							<td>年級：</td>
+							<td>
+								<select id="enterGrade" name="enterGrade">
+									<option value>請選擇</option>
+									<option value="高三">高三</option>
+									<option value="高二">高二</option>
+									<option value="高一">高一</option>
+									<option value="國三">國三</option>
+									<option value="國二">國二</option>
+									<option value="國一">國一</option>
+									<option value="其他">其他</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td><button class="btn" type="submit">註冊</button></td>
+						</tr>
+					</tbody>
+					
+				</table>
+			</form>
+		  </div>
+	</div>
+	</div>
+</body>
+</html>

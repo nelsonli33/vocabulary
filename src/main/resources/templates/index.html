@@ -16,7 +16,12 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 	
 	<style type="text/css">
-
+		body{
+			background-color: #F5F5F5;
+		    color: #898989;
+		    font-family: "微軟正黑體", Arial, sans-serif;
+		}
+		
 		.center {
 			display: block;
 			margin-left: auto;
@@ -29,7 +34,8 @@
 			margin-top: 20px;
 			margin-left: auto;
 			margin-right: auto;
-			width: 50%;
+			width: 45%;
+			height: 50%;
 		}
 
 
@@ -40,7 +46,12 @@
 			margin-right: auto;
 			width: 50%;
 		}
-
+		
+		.typename{
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+		}
 	</style>
 </head>
 <body>
@@ -51,11 +62,14 @@
 		<div class="container">
 			<div class="row">
 				<div class="col">
-					<img src="images/abc-books-chalk-265076.jpg" class="img-thumbnail img-center" alt="中英文卡片">
+					<img src="images/abc-books-chalk-265076.jpg" class="img-thumbnail img-center" alt="">
 
 				<form action="vocabulary" class="form-inline form-center" method="post">
-					  <input type="text" class="form-control" name="username" placeholder="請輸入名字">
-					  <button type="submit" class="btn btn-primary">開始訓練</button>
+
+					<div class="typename">
+						<input type="text" class="form-control mr-3" name="username" placeholder="請輸入名字">
+						<button type="submit" class="btn btn-primary">開始訓練</button>
+					</div>
 					 
 
 				   <div class="d-flex my-3 py-3 justify-content-center">
