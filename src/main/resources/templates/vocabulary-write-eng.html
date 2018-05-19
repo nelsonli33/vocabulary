@@ -87,7 +87,7 @@
 				<div class="col-md-3 d-flex flex-column">
 					
 					  <p class="text-center">Hello, 
-						<span class="username" th:text="${session.username}">王小明</span>
+						<span class="username" th:text="${username}">^_^</span>
 					  </p>
 					  
 
@@ -200,7 +200,7 @@
 		      <!-- Model footer -->
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-		        <button type="button" class="btn btn-primary" onclick="location.href='/register';">註冊</button>
+		        <button type="button" class="btn btn-primary" onclick="location.href='Users/register';">註冊</button>
 		      </div>
 
 
@@ -392,7 +392,7 @@
 		data["question"] = $('#question').val();
 		data["answer"] = $('#input-vocabulary').val();
 
-		console.log(window.location +"/api/addVocabularyRightOrWrongNum");
+		
 		// $('#btn-next-question').prop("disabled",true);
 		console.log(data);
 	    $.ajax({

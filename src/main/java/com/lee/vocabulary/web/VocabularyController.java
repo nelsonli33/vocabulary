@@ -28,10 +28,11 @@ public class VocabularyController {
 	@Autowired
 	private VocabularyService vocabularyService;
 	
-	@GetMapping("/")
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home() {
 		return "index";
 	}
+	
 	
 	
 	@PostMapping("/vocabulary")
@@ -49,22 +50,16 @@ public class VocabularyController {
 	
 	@PostMapping("/vocabulary/write-eng")
 	public String vocabulary_write_english(
-			@RequestParam(required=false,name="username") String username,
-			HttpSession httpSession,Model model) {
-		
-		// 判斷使用者第一次登入加入 session 作用域，否則直接取用session值
-		if(username != null) {
+			@RequestParam(required=false,name="username") String username, Model model) {
+		System.out.println("tttt"+username);
+		if(username != "") {
 			model.addAttribute("username", username);
-			httpSession.setAttribute("username", username);
-		} else {
-			username = (String) httpSession.getAttribute("username");
 		}
-		
 		return "vocabulary-write-eng";
 	}
 	
 	// 判斷使用者的回答 增加資料庫中的單字對錯次數
-	@RequestMapping(name="/vocabulary/api/addVocabularyRightOrWrongNum",method=RequestMethod.POST)
+	@RequestMapping(value="/vocabulary/api/addVocabularyRightOrWrongNum",method=RequestMethod.POST)
 	@ResponseBody
 	public boolean addVocabularyRightOrWrongNum(
 			@RequestBody Map<String, String> jsonStr) {

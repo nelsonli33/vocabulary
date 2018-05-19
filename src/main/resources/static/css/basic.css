@@ -1,0 +1,64 @@
+	
+	body{
+		background-color: #F5F5F5;
+	    color: #898989;
+	    text-align: center;
+	    margin: 0 auto;
+	    padding: 0;
+	    font-family: "微軟正黑體", Arial, sans-serif;
+	}
+
+	.basic {
+		width: 980px;
+		margin: 30px auto;
+	    padding: 0;
+	}
+
+
+
+	.box {
+		background-color: #fff;
+		box-shadow: 1px 1px 4px 1px #ccc;
+		width: 100%;
+		margin-bottom: 12px;
+		border-radius: 6px;
+		padding: 8px 0;
+		display: inline-block;
+		text-align: left;
+		font-family: "微軟正黑體", Arial, sans-serif;
+	}
+
+	.box-title {
+	    display: inline-block;
+	    position: relative;
+	    width: 100%;
+	    height: 42px;
+	 }
+
+	 .table {
+	    display: table;
+	    border-collapse: separate;
+	    border-spacing: 2px;
+	  }
+
+	.btn {
+	    box-shadow: 2px 2px 4px -1px #ccc;
+	    display: inline-block;
+	    width: auto;
+	    padding: 10px 40px;
+	    border: 1px solid white;
+	    background: #3498db;
+	    color: white;
+	    border-radius: 4px;
+	    position: relative;
+	    font-size: 1.2em;
+	}
+
+	.use-email {
+		color: black;
+		font-size: 30px;
+		font-weight: bold;
+		text-align: center;
+		padding-top: 2px;
+	}
+	  
