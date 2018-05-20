@@ -12,7 +12,7 @@ public class UserService {
 	@Autowired
 	private UserMapper userMapper;
 	
-	public User queryUserByEmail(String account) {
+	public User queryUserByAccount(String account) {
 		return userMapper.queryUserByAccount(account);
 	}
 	

@@ -18,7 +18,7 @@
 	<style type="text/css">
 		body{
 			background-color: #F5F5F5;
-		    color: #898989;
+		    color: #000000;
 		    font-family: "微軟正黑體", Arial, sans-serif;
 		}
 		
@@ -55,9 +55,10 @@
 	</style>
 </head>
 <body>
-	<div th:replace="fragments/navbar :: navbar"></div>
-	
 
+	<div th:replace="${session.currentUser} ? ~{fragments/navbar_login :: navbar_login}: ~{fragments/navbar :: navbar} "></div>
+	
+	<p th:text="${session.currentUser}"></p>
 	<main>
 		<div class="container">
 			<div class="row">
@@ -67,7 +68,9 @@
 				<form action="vocabulary" class="form-inline form-center" method="post">
 
 					<div class="typename">
-						<input type="text" class="form-control mr-3" name="username" placeholder="請輸入名字">
+						<input type="text" class="form-control mr-3" name="username" placeholder="請輸入名字" th:unless="${session.currentUser}">
+						<span class="mr-3" th:if="${session.currentUser}"><h3 th:text="${session.currentUser.username}"></h3></span>
+						
 						<button type="submit" class="btn btn-primary">開始訓練</button>
 					</div>
 					 

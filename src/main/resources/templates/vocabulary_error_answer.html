@@ -21,7 +21,7 @@
 	</head>
 	<body>
 	
-		<div th:replace="fragments/navbar :: navbar"></div>
+		<div th:replace="${session.currentUser} ? ~{fragments/navbar_login :: navbar_login}: ~{fragments/navbar :: navbar} "></div>
 	
 		<div class="container">
 			<div class="row">

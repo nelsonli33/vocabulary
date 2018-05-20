@@ -78,7 +78,7 @@
 	
 
 
-	<div th:replace="fragments/navbar :: navbar"></div>
+	<div th:replace="${session.currentUser} ? ~{fragments/navbar_login :: navbar_login}: ~{fragments/navbar :: navbar} "></div>
 	
 	<main class="py-5">
 		
@@ -178,7 +178,7 @@
 		      <!-- Modal Header -->
 		      <div class="modal-header">
 		        <h4 class="modal-title" id="finishExamModalTitle">恭喜！ 
-				   <span class="username" th:text="${session.username}"></span>
+				   <span class="username" th:text="${session.currentUser.username}"></span>
 				   &nbsp;同學已經完成作答！
 				</h4>
 		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -200,14 +200,16 @@
 		      <!-- Model footer -->
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-		        <button type="button" class="btn btn-primary" onclick="location.href='Users/register';">註冊</button>
+		        <button type="button" class="btn btn-primary" onclick="location.href='auth/signup';" th:unless="${session.currentUser}">註冊</button>
 		      </div>
 
 
 		    </div>
 		  </div>
 		</div>
+		
 
+		<input id="account" type="hidden" th:value="${session.currentUser.account}" th:if="${session.currentUser}">
 	</main>
 		
 	
@@ -286,9 +288,6 @@
 		.fail(function() {
 			console.log("error");
 		})
-		.always(function() {
-			console.log("complete");
-		});
 	}
 	
 
@@ -301,6 +300,7 @@
 	 	   $('#btn-checkAnswer').click(); // the enter key code
 		 }
 	}); 
+
 
 	var current_questions_number = 0;
 	// 使用 jQuery 驗證使用者是否回答正確
@@ -338,6 +338,10 @@
 
 			postQuesAns();
 
+			// 使用者登入情況才呼叫此方法
+			if ($('#account').val() != '') {
+				postQuesAnsMember();
+			}
 
 			$('#btn-checkAnswer').hide();
 			$('#btn-next-question').show();
@@ -414,8 +418,34 @@
 	               	// $("#btn-next-question").prop("disabled", false);
 
 	            }
-	        });
+	     });
 	}
+
+
+	// 傳給伺服器會員練習單字紀錄
+	function postQuesAnsMember(){
+		var data = {};
+		data["question"] = $('#question').val();
+		data["answer"] = $('#input-vocabulary').val();
+		data["account"] = $('#account').val();
+
+		
+		console.log(data);
+	    $.ajax({
+	            type: "POST",
+	            url: window.location.origin+"/user/vocabulary/api/insertUserVocabulary",
+	            data: JSON.stringify(data),
+	            contentType: "application/json; charset=utf-8",
+	            success: function (data) {
+	      
+	                console.log("SUCCESS : ", data);
+	            },
+	            error: function (e) {
+	                console.log("ERROR : ", e);
+	            }
+	     });
+	}
+
 
 </script>
 

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.lee.vocabulary.entity.User;
 import com.lee.vocabulary.entity.Vocabulary;
 import com.lee.vocabulary.service.VocabularyService;;
 
@@ -50,10 +51,15 @@ public class VocabularyController {
 	
 	@PostMapping("/vocabulary/write-eng")
 	public String vocabulary_write_english(
-			@RequestParam(required=false,name="username") String username, Model model) {
+			@RequestParam(required=false,name="username") String username,HttpSession session, Model model) {
 		System.out.println("tttt"+username);
-		if(username != "") {
+		
+		if(username != null ) {
 			model.addAttribute("username", username);
+		} else {
+			User user = (User) session.getAttribute("currentUser");
+			System.out.println(user.getAccount());
+			model.addAttribute("username", user.getUsername());
 		}
 		return "vocabulary-write-eng";
 	}

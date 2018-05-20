@@ -80,7 +80,7 @@
 						</tr>
 						<tr>
 							<td></td>
-							<td><button id="btn-register" class="btn" type="button" onclick="register()" disabled>註冊</button></td>
+							<td><button id="btn-register" class="btn" type="button" onclick="register()" >註冊</button></td>
 						</tr>
 					</tbody>
 					
@@ -102,7 +102,7 @@
 				      <!-- Model footer -->
 				      <div class="modal-footer">
 				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				        <button type="button" class="btn btn-primary" >註冊</button>
+				        <button type="button" class="btn btn-primary" href="/auth/login">立即跳轉</button>
 				      </div>
 
 
@@ -164,7 +164,7 @@
 	  		console.log(User);
 
 			$.ajax({
-				url: window.location.origin+'/Users/api/newUser',
+				url: window.location.origin+'/users/api/newUser',
 				type: 'POST',
 				dataType: 'json',
 				data: JSON.stringify(User),
@@ -184,7 +184,7 @@
 						},1000);
 
 						window.setTimeout( function(){
-                           window.location.href="/Users/login"
+                           window.location.href="/auth/login"
                         }, 4000 );
 					});
 				} else {

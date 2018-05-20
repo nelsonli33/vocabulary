@@ -25,7 +25,7 @@
 <body>
 
 
-	<div th:replace="fragments/navbar :: navbar"></div>
+	<div th:replace="${session.currentUser} ? ~{fragments/navbar_login :: navbar_login}: ~{fragments/navbar :: navbar} "></div>
 
 	<main class="py-5">
 		<div class="container-fluid">

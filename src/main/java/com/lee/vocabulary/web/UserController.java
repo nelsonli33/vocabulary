@@ -21,22 +21,25 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	@GetMapping("/Users/register")
+	/*
+	 * 註冊/登入
+	 */
+	@GetMapping("/auth/signup")
 	public String register() {
 		return "register";
 	}
 	
-	@GetMapping("/Users/login")
+	@GetMapping("/auth/login")
 	public String login() {
 		return "login";
 	}
 	
 	// 新增會員
-	@RequestMapping(value="/Users/api/newUser", method=RequestMethod.POST)
+	@RequestMapping(value="/users/api/newUser", method=RequestMethod.POST)
 	@ResponseBody
 	public boolean newUser(@RequestBody User user) {
 		System.out.println(user.getEmail());
-		User alreadyExistUser = userService.queryUserByEmail(user.getAccount());
+		User alreadyExistUser = userService.queryUserByAccount(user.getAccount());
 		
 		if(alreadyExistUser == null) {
 			userService.insertNewUser(user);
@@ -46,7 +49,8 @@ public class UserController {
 		return true;
 	}
 	
-	@RequestMapping(value="/Users/api/userLogin", method=RequestMethod.POST)
+	// 會員登入
+	@RequestMapping(value="/users/api/userLogin", method=RequestMethod.POST)
 	@ResponseBody
 	public boolean userLogin(@RequestBody Map<String,String> userJson, HttpSession session) {
 		String account = userJson.get("account");
@@ -61,6 +65,13 @@ public class UserController {
 		}
 		return false;
 	}
-
-	// 會員登入
+	
+	@GetMapping("/auth/logout")
+	public String userLogout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/";
+	}
+	
+	
+	
 }

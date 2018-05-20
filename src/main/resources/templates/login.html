@@ -66,7 +66,7 @@
 			console.log(user);
 
 			$.ajax({
-				url: window.location.origin+'/Users/api/userLogin',
+				url: window.location.origin+'/users/api/userLogin',
 				type: 'POST',
 				data: JSON.stringify(user),
 				contentType: "application/json; charset=utf-8",
@@ -78,7 +78,7 @@
 				if( data == true){
 					console.log("登入成功");
 					$('#loginInfo').html('<p>登入成功!</p>');
-					window.location.href="userInfo.html";
+					window.location.href="/user/vocabulary/statistic";
 				} else {
 					console.log("登入失敗");
 					$('#loginInfo').html('<p>登入失敗!</p>');
