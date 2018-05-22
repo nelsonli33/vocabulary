@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
   `grade` varchar(30) ,
  */
 public class User {
-	
+
 	@JsonIgnore
 	private int id;
 	private String username;
@@ -20,12 +20,12 @@ public class User {
 	private String password;
 	private String sex;
 	private String grade;
-	
+
 	public User() {
-		
+
 	}
-	
-	public User( String username,String account, String email, String password, String sex, String grade) {
+
+	public User(String username, String account, String email, String password, String sex, String grade) {
 		super();
 		this.username = username;
 		this.account = account;
@@ -35,35 +35,30 @@ public class User {
 		this.grade = grade;
 	}
 
-
-
-	
-
-
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
 	public String getUsername() {
 		return username;
 	}
+
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	
+
 	public String getAccount() {
 		return account;
 	}
 
-
 	public void setAccount(String account) {
 		this.account = account;
 	}
-	
-	
+
 	public String getEmail() {
 		return email;
 	}
@@ -83,23 +78,23 @@ public class User {
 	public String getSex() {
 		return sex;
 	}
+
 	public void setSex(String sex) {
 		this.sex = sex;
 	}
+
 	public String getGrade() {
 		return grade;
 	}
+
 	public void setGrade(String grade) {
 		this.grade = grade;
 	}
-
-
 
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", account=" + account + ", username=" + username + ", email=" + email + ", password="
 				+ password + ", sex=" + sex + ", grade=" + grade + "]";
 	}
-	
-	
+
 }

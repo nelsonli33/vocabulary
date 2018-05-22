@@ -27,7 +27,7 @@
    <div class="basic">	
 	<div class="box register">
 	   <div class="container">
-			
+	   		
 				<table cellpadding="10" class="table-register">
 					<tbody>
 						<tr>
@@ -39,7 +39,8 @@
 						</tr>
 						<tr>
 							<td>帳號：</td>
-							<td><input type="text" id="accountInput" maxlength="12" /></td>
+							<td><input type="text" id="accountInput" maxlength="12"/></td>
+							<td id="checkIsAccountExist"></td>
 						</tr>
 						<tr>
 							<td>E-mail：</td>
@@ -85,7 +86,6 @@
 					</tbody>
 					
 				</table>
-			
 
 				<!-- Finish Register Modal -->
 				<div class="modal fade" id="finishRegisterModalCenter" tabindex="-1" role="dialog" aria-labelledby="finishExamModalCenterTitle" aria-hidden="true">
@@ -125,34 +125,45 @@
 			   2. 檢查上述欄位是否不為空
 			   $('#btn-register').removeClass('disabled');
 			 */
-			 // $('#accountInput').on("blur", function() {
+			 $('#accountInput').on("blur", function() {
 
-			 // 	var account_value = $(this).val();
+			 	var account_value = $(this).val();
 
-			 // 	// 當失去聚焦的時候，裡面的值不為空就檢查
-			 // 	if(account_value != '') {
+			 	// 當失去聚焦的時候，裡面的值不為空就檢查
+			 	if(account_value != '') {
 			 		
-			 // 		console.log(account_value);
+			 		var User = {};
+			 		User["account"] = account_value;
 
-			 // 		$.ajax({
-			 // 			url: '/path/to/file',
-			 // 			type: 'POST',
-			 // 			data: { account : $(this).val() },
-			 // 		})
-			 // 		.done(function(data) {
-			 // 			console.log("success");
-			 // 		})
-			 // 		.fail(function() {
-			 // 			console.log("error");
-			 // 		})
+			 		console.log(account_value);
 
-			 // 	} else {
-			 // 		console.log("空字串");
-			 // 	}
-			 // });
+			 		$.ajax({
+			 			url: window.location.origin+'/users/api/checkIsAccountExist',
+			 			type: 'POST',
+			 			data: JSON.stringify(User),
+			 			contentType: "application/json; charset=utf-8"
+			 		})
+			 		.done(function(data) {
+			 			if(data === true){
+			 				$('#checkIsAccountExist').html("<span class='text-success'>此帳號可以使用</span>");
+			 				console.log("此帳號可以使用");
+			 			} else {
+			 				$('#checkIsAccountExist').html("<span class='text-danger'>此帳號已被註冊</span>");
+			 			}
+			 			
+			 			console.log("success");
+			 		})
+			 		.fail(function() {
+			 			console.log("error");
+			 		})
+
+			 	} else {
+			 		console.log("空字串");
+			 	}
+			 });
 	  		
 	  			
-	  		function register() {
+	  	function register() {
 	  			
 	  		var User = {};
 		  	User["username"] = $("#username").val();
@@ -189,6 +200,7 @@
 					});
 				} else {
 					console.log("失敗");
+					alert("註冊失敗");
 				}
 
 			})

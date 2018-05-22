@@ -6,11 +6,11 @@ public class Vocabulary {
 	private String chineseword;
 	private String right_num;
 	private String wrong_num;
-	
-	public Vocabulary () {
-		
+
+	public Vocabulary() {
+
 	}
-	
+
 	public Vocabulary(String englishword, String chineseword, String right_num, String wrong_num) {
 		super();
 		this.englishword = englishword;
@@ -59,12 +59,10 @@ public class Vocabulary {
 		this.wrong_num = wrong_num;
 	}
 
-	
 	@Override
 	public String toString() {
 		return "Vocabulary [id=" + id + ", englishword=" + englishword + ", chineseword=" + chineseword + ", right_num="
 				+ right_num + ", wrong_num=" + wrong_num + "]";
 	}
-	
-	
+
 }

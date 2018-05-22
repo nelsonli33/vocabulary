@@ -59,7 +59,31 @@
 
 	
 		
-	
+		.fixed_header{
+		    width: 100%;
+		    table-layout: fixed;
+		   
+		}
+
+		.fixed_header tbody{
+		  display:block;
+		  width: 100%;
+		  overflow: auto;
+		  height: 400px;
+		}
+
+		.fixed_header thead tr {
+		   display: block;
+		}
+
+		
+
+		.fixed_header th, .fixed_header td {
+		  padding: 13px;
+		  width: 200px;
+		}
+		
+		
 		
 	</style>
 </head>
@@ -118,7 +142,7 @@
 								<div class="card shadow-lg p-2 mb-5 round">
 								  <div class="card-body">
 								    
-										<table class="table table-striped">
+										<table class="table table-striped fixed_header">
 										  <thead>
 										    <tr>
 										      <th scope="col">#</th>

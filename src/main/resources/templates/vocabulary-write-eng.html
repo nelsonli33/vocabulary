@@ -26,10 +26,10 @@
 
 
 		.card{
-			background-image: url(images/volume-down.svg);
+			/*background-image: url(images/volume-down.svg);
 			background-repeat: no-repeat;
 			background-size: 30px;
-			background-position: top right;	
+			background-position: top right;	*/
 			padding: 40px;		
 		}
 
@@ -67,6 +67,9 @@
 		  outline: none;
 		}
 
+		#score {
+			font-size: 16px;
+		}
 		
 	</style>
 
@@ -87,7 +90,7 @@
 				<div class="col-md-3 d-flex flex-column">
 					
 					  <p class="text-center">Hello, 
-						<span class="username" th:text="${username}">^_^</span>
+						<span class="username" th:text="${username}">王小明</span>
 					  </p>
 					  
 
@@ -178,7 +181,7 @@
 		      <!-- Modal Header -->
 		      <div class="modal-header">
 		        <h4 class="modal-title" id="finishExamModalTitle">恭喜！ 
-				   <span class="username" th:text="${session.currentUser.username}"></span>
+				   <span class="username" th:text="${username}"></span>
 				   &nbsp;同學已經完成作答！
 				</h4>
 		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -190,11 +193,13 @@
 		      <div class="modal-body">
 		         
 		         <p id="score">測驗分數: </p>
-		     	 <h3>歡迎註冊為會員</h3>
-		     	 <p>你將可以享有以下功能：</p>
-		     	 <ul>
-		     	 	<li>會員練習單字的統計資訊</li>
-		     	 </ul>
+		         <div th:unless="${session.currentUser}">
+			     	 <h3>歡迎註冊為會員</h3>
+			     	 <p>你將可以享有以下功能：</p>
+			     	 <ul>
+			     	 	<li>會員練習單字的統計資訊</li>
+			     	 </ul>
+		     	 </div>
 		      </div>
 
 		      <!-- Model footer -->
@@ -208,19 +213,19 @@
 		  </div>
 		</div>
 		
-
+	
 		<input id="account" type="hidden" th:value="${session.currentUser.account}" th:if="${session.currentUser}">
 	</main>
 		
 	
 
 	
-
+<script src="js/postQuesAns.js"></script>
 <script>
 
 	$(document).ready(function(){
 	  $.ajax({
-	  	url: '/vocabulary/api/getRandomWord',
+	  	url: '/vocabulary/api/getRandomVocabulary',
 	  	type: 'GET',
 	  	dataType: "json"
 	  })
@@ -255,7 +260,7 @@
 
 	function getRandomWord(){
 		$.ajax({
-			url: '/vocabulary/api/getRandomWord',
+			url: '/vocabulary/api/getRandomVocabulary',
 			type: 'GET',
 			dataType: "json"
 		})
@@ -281,6 +286,8 @@
 			$('#btn-checkAnswer').show();
 			$("#input-vocabulary").css("color","black");
 			$("#input-vocabulary").val('');
+			$("#input-vocabulary").prop("disabled", false);
+			$("#input-vocabulary").focus();
 			resetRightAnswer();
 			resetWrongAnswer();
 
@@ -292,7 +299,6 @@
 	
 
 	
-
 	$('#input-vocabulary').keypress(function (e) {
 	 	var key = e.which;
 	 	if(key == 13)  
@@ -306,54 +312,56 @@
 	// 使用 jQuery 驗證使用者是否回答正確
 	function checkAnswer(){
 			
-			current_questions_number = current_questions_number + 1;
-			$('#total-questions-progress').width(current_questions_number*10+"%")
-										  .text(current_questions_number);
+		current_questions_number = current_questions_number + 1;
+		$('#total-questions-progress').width(current_questions_number*10+"%")
+									  .text(current_questions_number);
 
 
-			var right_answers_number = $('#right-answers-number').text();
-			var wrong_answers_number = $('#wrong-answers-number').text();
+		var right_answers_number = $('#right-answers-number').text();
+		var wrong_answers_number = $('#wrong-answers-number').text();
 
-			var answer = $('#input-vocabulary').val();
-			var question = $('#question').val();
+		var answer = $('#input-vocabulary').val();
+		var question = $('#question').val();
 
-			if(answer.toUpperCase() === question.toUpperCase()){
+		if(answer.toUpperCase() === question.toUpperCase()){
 
-				$("#input-vocabulary").css("color","green");
-				$("<i class='fas fa-check-circle fa-3x' style='color:#093;' id='fa-check-circle'></i>").insertAfter($('#input-vocabulary'));
-				right_answers_number++;
-				$('#right-answers-progress').width(right_answers_number*10+"%");
-				$('#right-answers-number').text(right_answers_number);
-
-				
-			} else {
-				$("#input-vocabulary").css("color","red");
-				$("<i class='fas fa-times-circle fa-3x' style='color:Tomato' id='fa-times-circle'></i>").insertAfter($('#input-vocabulary'));
-				$('#right-answer').append('<p class="text-center">正確答案：'+question+'</p>')
-
-				wrong_answers_number++;
-				$('#wrong-answers-progress').width(wrong_answers_number*10+"%");
-				$('#wrong-answers-number').text(wrong_answers_number);
-			}
-
-			postQuesAns();
-
-			// 使用者登入情況才呼叫此方法
-			if ($('#account').val() != '') {
-				postQuesAnsMember();
-			}
-
-			$('#btn-checkAnswer').hide();
-			$('#btn-next-question').show();
-			$('#btn-next-question').focus();
-
+			$("#input-vocabulary").css("color","green");
+			$("<i class='fas fa-check-circle fa-3x' style='color:#093;' id='fa-check-circle'></i>").insertAfter($('#input-vocabulary'));
+			right_answers_number++;
+			$('#right-answers-progress').width(right_answers_number*10+"%");
+			$('#right-answers-number').text(right_answers_number);
 
 			
-			// 測驗完畢後顯示Modal
-			if(current_questions_number == $('#total-questions-number').text()){
-				calculateExamScore(right_answers_number);
-				$('#finishExamModalCenter').modal('show');
-			}
+		} else {
+			$("#input-vocabulary").css("color","red");
+			$("<i class='fas fa-times-circle fa-3x' style='color:Tomato' id='fa-times-circle'></i>").insertAfter($('#input-vocabulary'));
+			$('#right-answer').append('<p class="text-center">正確答案：'+question+'</p>')
+
+			wrong_answers_number++;
+			$('#wrong-answers-progress').width(wrong_answers_number*10+"%");
+			$('#wrong-answers-number').text(wrong_answers_number);
+		}
+
+
+		postQuesAns(question,answer);
+
+		// 使用者登入情況才呼叫此方法
+		if ($('#account').val() != null) {
+			var account = $('#account').val();
+			postQuesAnsMember(question,answer,account);
+		}
+
+		$('#btn-checkAnswer').hide();
+		$('#btn-next-question').show();
+		$('#btn-next-question').focus();
+		$("#input-vocabulary").prop("disabled", true);
+
+		
+		// 測驗完畢後顯示Modal
+		if(current_questions_number == $('#total-questions-number').text()){
+			calculateExamScore(right_answers_number);
+			$('#finishExamModalCenter').modal('show');
+		}
 	}
 
 	
@@ -390,61 +398,6 @@
 	
 	
 
-	// 傳給伺服器用來記錄單字正確或錯誤次數	
-	function postQuesAns(){
-		var data = {};
-		data["question"] = $('#question').val();
-		data["answer"] = $('#input-vocabulary').val();
-
-		
-		// $('#btn-next-question').prop("disabled",true);
-		console.log(data);
-	    $.ajax({
-	            type: "POST",
-	            url: window.location +"/api/addVocabularyRightOrWrongNum",
-	            data: JSON.stringify(data),
-	            dataType: 'json',
-	            contentType: "application/json; charset=utf-8",
-	            success: function (data) {
-	      
-
-	                console.log("SUCCESS : ", data);
-	                // $("#btn-next-question").prop("disabled", false);
-
-	            },
-	            error: function (e) {
-
-	                console.log("ERROR : ", e);
-	               	// $("#btn-next-question").prop("disabled", false);
-
-	            }
-	     });
-	}
-
-
-	// 傳給伺服器會員練習單字紀錄
-	function postQuesAnsMember(){
-		var data = {};
-		data["question"] = $('#question').val();
-		data["answer"] = $('#input-vocabulary').val();
-		data["account"] = $('#account').val();
-
-		
-		console.log(data);
-	    $.ajax({
-	            type: "POST",
-	            url: window.location.origin+"/user/vocabulary/api/insertUserVocabulary",
-	            data: JSON.stringify(data),
-	            contentType: "application/json; charset=utf-8",
-	            success: function (data) {
-	      
-	                console.log("SUCCESS : ", data);
-	            },
-	            error: function (e) {
-	                console.log("ERROR : ", e);
-	            }
-	     });
-	}
 
 
 </script>

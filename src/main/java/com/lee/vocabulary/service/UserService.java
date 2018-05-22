@@ -11,18 +11,17 @@ public class UserService {
 
 	@Autowired
 	private UserMapper userMapper;
-	
+
 	public User queryUserByAccount(String account) {
 		return userMapper.queryUserByAccount(account);
 	}
-	
+
 	public User queryUserByAccountAndPassword(String account, String password) {
-		return userMapper.queryUserByAccountAndPassword(account,password);
+		return userMapper.queryUserByAccountAndPassword(account, password);
 	}
-	
+
 	public void insertNewUser(User user) {
 		userMapper.insertNewUser(user);
 	}
-	
-	
+
 }

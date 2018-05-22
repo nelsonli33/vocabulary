@@ -55,8 +55,16 @@
 		
 		// $('#btn-login').prop('disabled', false);
 			
+		// 輸入完密碼 可以按Enter登入
+		$('#passwordInput').keypress(function (e) {
+	 	var key = e.which;
+	 	if(key == 13)  
+	 	 {
+	 	   $('#btn-login').click(); // the enter key code
+		 }
+		}); 
 
-		
+
 
 		function login(){
 
