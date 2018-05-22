@@ -1,317 +1,315 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>單字卡訓練</title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-	<!-- Font Awesome -->
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
-	<!-- jQuery library -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<!-- Popper JS -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-	<!-- Latest compiled JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+<title>單字卡訓練</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 
 
-	<style>
-		body{
-			 background-color: rgb(236, 236, 236);
-		}
-		.progress {
-			background-color: #aaa;
-		}
-		.progress-content{
-			display: flex;
-			flex-direction: row;
-			justify-content: space-between;
-			margin-top: 8px;
-			margin-bottom: 8px;
-		}
+<style>
+	body{
+		 background-color: rgb(236, 236, 236);
+	}
+	.progress {
+		background-color: #aaa;
+	}
+	.progress-content{
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		margin-top: 8px;
+		margin-bottom: 8px;
+	}
 
-		#score {
-			font-size: 16px;
-		}
+	#score {
+		font-size: 16px;
+	}
 
-		.username {
-			font-size: 1.5em;
-		}
+	.username {
+		font-size: 1.5em;
+	}
 
-	
-	</style>
+
+</style>
 </head>
 <body>
 
 
-	<div th:replace="${session.currentUser} ? ~{fragments/navbar_login :: navbar_login}: ~{fragments/navbar :: navbar} "></div>
+<div th:replace="${session.currentUser} ? ~{fragments/navbar_login :: navbar_login}: ~{fragments/navbar :: navbar} "></div>
 
-	<main class="py-5">
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-md-3 d-flex flex-column">
-					<p class="text-center">Hello, 
-					   <span class="username" th:text="${username}">王小明</span>
-					</p>
-					<br>
-					<div class="progress-main">
-						<div class="progress-section">
-							<div class="progress">
-								<div id="total-questions-progress" class="progress-bar bg-dark" style="width:0%">0</div>
-							</div>
-							<div class="progress-content">
-								<span>總題數</span>	
-								<span id="total-questions-number">10</span>	
-							</div>
+<main class="py-5">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-3 d-flex flex-column">
+				<p class="text-center">Hello, 
+				   <span class="username" th:text="${username}">王小明</span>
+				</p>
+				<br>
+				<div class="progress-main">
+					<div class="progress-section">
+						<div class="progress">
+							<div id="total-questions-progress" class="progress-bar bg-dark" style="width:0%">0</div>
 						</div>
-						<div class="progress-section">
-							<div class="progress">
-								<div id="right-answers-progress" class="progress-bar bg-success" style="width:0%"></div>
-							</div>
-							<div class="progress-content">
-								<span>答對題數</span>	
-								<span id="right-answers-number">0</span>	
-							</div>
+						<div class="progress-content">
+							<span>總題數</span>	
+							<span id="total-questions-number">10</span>	
 						</div>
-						<div class="progress-section">
-							<div class="progress">
-								<div id="wrong-answers-progress" class="progress-bar bg-danger" style="width:0%"></div>
-							</div>
-							<div class="progress-content">
-								<span>答錯題數</span>	
-								<span id="wrong-answers-number">0</span>	
-							</div>
+					</div>
+					<div class="progress-section">
+						<div class="progress">
+							<div id="right-answers-progress" class="progress-bar bg-success" style="width:0%"></div>
+						</div>
+						<div class="progress-content">
+							<span>答對題數</span>	
+							<span id="right-answers-number">0</span>	
+						</div>
+					</div>
+					<div class="progress-section">
+						<div class="progress">
+							<div id="wrong-answers-progress" class="progress-bar bg-danger" style="width:0%"></div>
+						</div>
+						<div class="progress-content">
+							<span>答錯題數</span>	
+							<span id="wrong-answers-number">0</span>	
 						</div>
 					</div>
 				</div>
+			</div>
 
-				<div class="col-md-9 pr-3">
-					<div class="container">
-						
-						<div class="d-flex flex-column align-items-center">
-							<div class="card bg-light w-75">
-						  	<div class="card-body">
-						  		<p class="text-dark text-center" style="font-size: 2rem;" id="question"></p> <!-- th:text="${chineseword}" -->
-						  	</div>
-							</div>
+			<div class="col-md-9 pr-3">
+				<div class="container">
+					
+					<div class="d-flex flex-column align-items-center">
+						<div class="card bg-light w-75">
+					  	<div class="card-body">
+					  		<p class="text-dark text-center" style="font-size: 2rem;" id="question"></p> <!-- th:text="${chineseword}" -->
+					  	</div>
 						</div>
+					</div>
 
 
-						<section class="answersLayout">
-							
-							<div class="row justify-content-center my-5">
+					<section class="answersLayout">
+						
+						<div class="row justify-content-center my-5">
 
+						
+							<div class="col-md-6 d-flex justify-content-center">
+								<div class="form-check form-check-inline">
+								  <label class="form-check-label">
+								   <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1">
+								   		<span id="option1-text"></span>
+								  </label>
+								</div>
+							</div>
+							<div class="col-md-6 d-flex justify-content-start">
+								<div class="form-check form-check-inline">
+								  <label class="form-check-label">
+								    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"> 
+								    	<span id="option2-text"></span>
+								  </label>
+								</div>
+							</div>
+							<div class="w-100"></div>
+							<div class="col-md-6 d-flex mt-4 justify-content-center ">
+								<div class="form-check form-check-inline">
+								  <label class="form-check-label">
+								    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3"> 
+								    	<span id="option3-text"></span>
+								  </label>
+								</div>
+							</div>
+							<div class="col-md-6 d-flex mt-4 justify-content-start">
+								<div class="form-check form-check-inline">
+								  <label class="form-check-label">
+								    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4"> 
+								    	<span id="option4-text"></span>
+								   </label>
+								</div>
+							</div>
+						
+							<div id="rightans-layout">
+								<div class="col mt-5">
+									<p>正確答案:<span class="text-danger" id="rightans"></span></p>
+								</div>		
+							</div>
 							
-								<div class="col-md-6 d-flex justify-content-center">
-									<div class="form-check form-check-inline">
-									  <label class="form-check-label">
-									   <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1">
-									   		<span id="option1-text"></span>
-									  </label>
-									</div>
-								</div>
-								<div class="col-md-6 d-flex justify-content-start">
-									<div class="form-check form-check-inline">
-									  <label class="form-check-label">
-									    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"> 
-									    	<span id="option2-text"></span>
-									  </label>
-									</div>
-								</div>
-								<div class="w-100"></div>
-								<div class="col-md-6 d-flex mt-4 justify-content-center ">
-									<div class="form-check form-check-inline">
-									  <label class="form-check-label">
-									    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3"> 
-									    	<span id="option3-text"></span>
-									  </label>
-									</div>
-								</div>
-								<div class="col-md-6 d-flex mt-4 justify-content-start">
-									<div class="form-check form-check-inline">
-									  <label class="form-check-label">
-									    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4"> 
-									    	<span id="option4-text"></span>
-									   </label>
-									</div>
-								</div>
+							<div class="col mt-5 ml-5">
+								<button type="button" class="btn btn-primary btn-lg btn-block w-25 ml-5" onclick="checkAnswer()" id="btn-checkAnswer">
+									回答
+								</button>
+								<button type="button" class="btn btn-primary btn-lg btn-block w-50"  id="btn-nextQuestion" onclick="getRandomFourVocabulary()">
+									請按任意鍵繼續
+								</button>
+								<input type="hidden" th:value="${question_eng}" name="question" />
+							</div>
+						
+						</section>
 							
-								<div id="rightans-layout">
-									<div class="col mt-5">
-										<p>正確答案:<span class="text-danger" id="rightans"></span></p>
-									</div>		
-								</div>
-								
-								<div class="col mt-5 ml-5">
-									<button type="button" class="btn btn-primary btn-lg btn-block w-25 ml-5" onclick="checkAnswer()" id="btn-checkAnswer">
-										回答
-									</button>
-									<button type="button" class="btn btn-primary btn-lg btn-block w-50"  id="btn-nextQuestion" onclick="getRandomFourVocabulary()">
-										請按任意鍵繼續
-									</button>
-									<input type="hidden" th:value="${question_eng}" name="question" />
-								</div>
 							
-							</section>
-								
-								
-							
+						
 
-						</div>                
-				</div>
+					</div>                
 			</div>
 		</div>
+	</div>
+
+
+
+	<!-- Finish Exam Modal -->
+	<div class="modal fade" id="finishExamModalCenter" tabindex="-1" role="dialog" aria-labelledby="finishExamModalCenterTitle" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+
+	      <!-- Modal Header -->
+	      <div class="modal-header">
+	        <h4 class="modal-title" id="finishExamModalTitle">恭喜！ 
+			   <span class="username" th:text="${username}"></span>
+			   &nbsp;同學已經完成作答！
+			</h4>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+
+	      <!-- Modal body -->
+	      <div class="modal-body">
+	         
+	         <p id="score">測驗分數: </p>
+	         <div th:unless="${session.currentUser}">
+		     	 <h3>歡迎註冊為會員</h3>
+		     	 <p>你將可以享有以下功能：</p>
+		     	 <ul>
+		     	 	<li>會員練習單字的統計資訊</li>
+		     	 </ul>
+	     	 </div>
+	      </div>
+
+	      <!-- Model footer -->
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	        <button type="button" class="btn btn-primary" onclick="location.href='auth/signup';" th:unless="${session.currentUser}">註冊</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
 	
-
-
-		<!-- Finish Exam Modal -->
-		<div class="modal fade" id="finishExamModalCenter" tabindex="-1" role="dialog" aria-labelledby="finishExamModalCenterTitle" aria-hidden="true">
-		  <div class="modal-dialog modal-dialog-centered" role="document">
-		    <div class="modal-content">
-
-		      <!-- Modal Header -->
-		      <div class="modal-header">
-		        <h4 class="modal-title" id="finishExamModalTitle">恭喜！ 
-				   <span class="username" th:text="${username}"></span>
-				   &nbsp;同學已經完成作答！
-				</h4>
-		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-		          <span aria-hidden="true">&times;</span>
-		        </button>
-		      </div>
-
-		      <!-- Modal body -->
-		      <div class="modal-body">
-		         
-		         <p id="score">測驗分數: </p>
-		         <div th:unless="${session.currentUser}">
-			     	 <h3>歡迎註冊為會員</h3>
-			     	 <p>你將可以享有以下功能：</p>
-			     	 <ul>
-			     	 	<li>會員練習單字的統計資訊</li>
-			     	 </ul>
-		     	 </div>
-		      </div>
-
-		      <!-- Model footer -->
-		      <div class="modal-footer">
-		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-		        <button type="button" class="btn btn-primary" onclick="location.href='auth/signup';" th:unless="${session.currentUser}">註冊</button>
-		      </div>
-
-
-		    </div>
-		  </div>
-		</div>
-		
-		<input id="account" type="hidden" th:value="${session.currentUser.account}" th:if="${session.currentUser}">
-	</main>
+	<input id="account" type="hidden" th:value="${session.currentUser.account}" th:if="${session.currentUser}">
+</main>
 
 <script src="js/postQuesAns.js"></script>
 <script>
-	$(document).ready(function(){
-	  getRandomFourVocabulary();
-	});
-	
-
-	function getRandomFourVocabulary(){
-		$.ajax({
-			url: '/vocabulary/api/getRandomFourVocabulary',
-			type: 'GET',
-			dataType: "json"
-		})
-		.done(function(vocabularyList) {
-			console.log("success");
-			console.log(vocabularyList);
-			$('#inlineRadio1').val(vocabularyList[0].englishword);
-			$('#option1-text').html("(A) "+vocabularyList[0].chineseword);
-			$('#inlineRadio2').val(vocabularyList[1].englishword);
-			$('#option2-text').html("(B) "+vocabularyList[1].chineseword);
-			$('#inlineRadio3').val(vocabularyList[2].englishword);
-			$('#option3-text').html("(C) "+vocabularyList[2].chineseword);
-			$('#inlineRadio4').val(vocabularyList[3].englishword);
-			$('#option4-text').html("(D) "+vocabularyList[3].chineseword);
-
-			// 選取其中一個選項當題目
-			var index = Math.floor(Math.random() * 4);
-			$('#question').text(vocabularyList[index].englishword);
-			$('#rightans').text(vocabularyList[index].chineseword);
-		})
-		.fail(function() {
-			console.log("error");
-		})
-		.always(function() {
-			$('#btn-nextQuestion').hide();
-			$('#btn-checkAnswer').show();
-			$('#rightans-layout').hide();
-		})
-  	}
-
-	
-	
-
-	$('input[name*=inlineRadioOptions]').on('click', function(){
-			$('#btn-checkAnswer').focus();
-	});
+$(document).ready(function(){
+  getRandomFourVocabulary();
+});
 
 
-	var current_questions_number = 0;
-	// 使用 jQuery 驗證使用者是否回答正確
-	function checkAnswer(){
+function getRandomFourVocabulary(){
+	$.ajax({
+		url: '/vocabulary/api/getRandomFourVocabulary',
+		type: 'GET',
+		dataType: "json"
+	})
+	.done(function(vocabularyList) {
+		console.log("success");
+		console.log(vocabularyList);
+		$('#inlineRadio1').val(vocabularyList[0].englishword);
+		$('#option1-text').html("(A) "+vocabularyList[0].chineseword);
+		$('#inlineRadio2').val(vocabularyList[1].englishword);
+		$('#option2-text').html("(B) "+vocabularyList[1].chineseword);
+		$('#inlineRadio3').val(vocabularyList[2].englishword);
+		$('#option3-text').html("(C) "+vocabularyList[2].chineseword);
+		$('#inlineRadio4').val(vocabularyList[3].englishword);
+		$('#option4-text').html("(D) "+vocabularyList[3].chineseword);
 
-		current_questions_number = current_questions_number + 1;
-		$('#total-questions-progress').width(current_questions_number*10+"%")
-									  .text(current_questions_number);
-
-		var right_answers_number = $('#right-answers-number').text();
-		var wrong_answers_number = $('#wrong-answers-number').text();
-
-
-		var question = $('#question').text();
-		var userAnswer = $('input[name*=inlineRadioOptions]:checked').val();
-		
-		if(question.toUpperCase() === userAnswer.toUpperCase()){
-			alert("正確");
-
-			right_answers_number++;
-			$('#right-answers-progress').width(right_answers_number*10+"%");
-			$('#right-answers-number').text(right_answers_number);
-
-		} else {
-			alert("錯誤");
-			$('#rightans-layout').show();
-
-			wrong_answers_number++;
-			$('#wrong-answers-progress').width(wrong_answers_number*10+"%");
-			$('#wrong-answers-number').text(wrong_answers_number);
-		}
-
-		postQuesAns(question,userAnswer);
-
-		// 使用者登入情況才呼叫此方法
-		if ($('#account').val() != null) {
-			var account = $('#account').val();
-			postQuesAnsMember(question,answer,account);
-		}
-
-		$('#btn-checkAnswer').hide();
-		$('#btn-nextQuestion').show(function(){
-			$('#btn-nextQuestion').focus();
-		});
-
-
-
-		// 測驗完畢後顯示Modal
-		if(current_questions_number == $('#total-questions-number').text()){
-			calculateExamScore(right_answers_number);
-			$('#finishExamModalCenter').modal('show');
-		}
+		// 選取其中一個選項當題目
+		var index = Math.floor(Math.random() * 4);
+		$('#question').text(vocabularyList[index].englishword);
+		$('#rightans').text(vocabularyList[index].chineseword);
+	})
+	.fail(function() {
+		console.log("error");
+	})
+	.always(function() {
+		$('#btn-nextQuestion').hide();
+		$('#btn-checkAnswer').show();
+		$('#rightans-layout').hide();
+	})
 	}
 
 
+
+
+$('input[name*=inlineRadioOptions]').on('click', function(){
+		$('#btn-checkAnswer').focus();
+});
+
+
+var current_questions_number = 0;
+// 使用 jQuery 驗證使用者是否回答正確
+function checkAnswer(){
+
+	current_questions_number = current_questions_number + 1;
+	$('#total-questions-progress').width(current_questions_number*10+"%")
+								  .text(current_questions_number);
+
+	var right_answers_number = $('#right-answers-number').text();
+	var wrong_answers_number = $('#wrong-answers-number').text();
+
+
+	var question = $('#question').text();
+	var userAnswer = $('input[name*=inlineRadioOptions]:checked').val();
 	
-	
+	if(question.toUpperCase() === userAnswer.toUpperCase()){
+		alert("正確");
+
+		right_answers_number++;
+		$('#right-answers-progress').width(right_answers_number*10+"%");
+		$('#right-answers-number').text(right_answers_number);
+
+	} else {
+		alert("錯誤");
+		$('#rightans-layout').show();
+
+		wrong_answers_number++;
+		$('#wrong-answers-progress').width(wrong_answers_number*10+"%");
+		$('#wrong-answers-number').text(wrong_answers_number);
+	}
+
+	postQuesAns(question,userAnswer);
+
+	// 使用者登入情況才呼叫此方法
+	if ($('#account').val() != null) {
+		var account = $('#account').val();
+		postQuesAnsMember(question,userAnswer,account);
+	}
+
+	$('#btn-checkAnswer').hide();
+	$('#btn-nextQuestion').show(function(){
+		$('#btn-nextQuestion').focus();
+	});
+
+
+
+	// 測驗完畢後顯示Modal
+	if(current_questions_number == $('#total-questions-number').text()){
+		calculateExamScore(right_answers_number);
+		$('#finishExamModalCenter').modal('show');
+	}
+}
+
+
+
+
 
 
 </script>

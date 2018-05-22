@@ -1,48 +1,48 @@
 <!DOCTYPE html>
-	<html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<title>單字卡訓練</title>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<!-- Latest compiled and minified CSS -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-		<!-- Font Awesome -->
-		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
-		<!-- jQuery library -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-		<!-- Popper JS -->
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-		<!-- Latest compiled JavaScript -->
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-	
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>單字卡訓練</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<!-- Popper JS -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 
 
-	</head>
-	<body>
-	
-		<div th:replace="${session.currentUser} ? ~{fragments/navbar_login :: navbar_login}: ~{fragments/navbar :: navbar} "></div>
-	
-		<div class="container">
-			<div class="row">
-				<div class="col d-flex flex-column justify-content-center mt-3">
-					<h2>使用者最容易答錯單字前十名</h2>
-					<table class="table mt-4">
-						<thead>
-							<tr>
-								<th>單字</th>
-								<th>答錯次數</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr th:each="vocabulary: ${vocabularys}">
-						      <td th:text="${vocabulary.englishword}"></td>
-						      <td th:text="${vocabulary.wrong_num}"></td>						      
-						    </tr>
-						</tbody>
-					</table>
-				</div>
+
+</head>
+<body>
+
+	<div th:replace="${session.currentUser} ? ~{fragments/navbar_login :: navbar_login}: ~{fragments/navbar :: navbar} "></div>
+
+	<div class="container">
+		<div class="row">
+			<div class="col d-flex flex-column justify-content-center mt-3">
+				<h2>使用者最容易答錯單字前十名</h2>
+				<table class="table mt-4">
+					<thead>
+						<tr>
+							<th>單字</th>
+							<th>答錯次數</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="vocabulary: ${vocabularys}">
+					      <td th:text="${vocabulary.englishword}"></td>
+					      <td th:text="${vocabulary.wrong_num}"></td>						      
+					    </tr>
+					</tbody>
+				</table>
 			</div>
 		</div>
-	</body>
-	</html>	
+	</div>
+</body>
+</html>	

@@ -1,100 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>單字卡訓練</title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-	<!-- Font Awesome -->
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
-	<!-- jQuery library -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<!-- Popper JS -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-	<!-- Latest compiled JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+<title>單字卡訓練</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
+<style type="text/css">
+	body{
+		background-color: #F5F5F5;
+	    color: #000000;
+	    font-family: "微軟正黑體", Arial, sans-serif;
+	}
 	
-	<style type="text/css">
-		body{
-			background-color: #F5F5F5;
-		    color: #000000;
-		    font-family: "微軟正黑體", Arial, sans-serif;
-		}
-		
-		.center {
-			display: block;
-			margin-left: auto;
-			margin-right: auto;
-			width: 50%;
-		}
-		
-		.img-center{
-			display: block;
-			margin-top: 20px;
-			margin-left: auto;
-			margin-right: auto;
-			width: 45%;
-			height: 50%;
-		}
+	.center {
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		width: 50%;
+	}
+	
+	.img-center{
+		display: block;
+		margin-top: 20px;
+		margin-left: auto;
+		margin-right: auto;
+		width: 45%;
+		height: 50%;
+	}
 
 
-		.form-center{
-			display: block;
-			margin-top: 20px;
-			margin-left: auto;
-			margin-right: auto;
-			width: 50%;
-		}
-		
-		.typename{
-			display: flex;
-			flex-direction: row;
-			justify-content: center;
-		}
-	</style>
+	.form-center{
+		display: block;
+		margin-top: 20px;
+		margin-left: auto;
+		margin-right: auto;
+		width: 50%;
+	}
+	
+	.typename{
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+	}
+</style>
 </head>
 <body>
 
-	<div th:replace="${session.currentUser} ? ~{fragments/navbar_login :: navbar_login}: ~{fragments/navbar :: navbar} "></div>
-	
+<div th:replace="${session.currentUser} ? ~{fragments/navbar_login :: navbar_login}: ~{fragments/navbar :: navbar} "></div>
 
-	<main>
-		<div class="container">
-			<div class="row">
-				<div class="col">
-					<img src="images/learning.jpeg" class="img-thumbnail img-center" alt="中英文卡片">
 
-				<form action="vocabulary" class="form-inline form-center" method="post">
+<main>
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<img src="images/learning.jpeg" class="img-thumbnail img-center" alt="中英文卡片">
 
-					<div class="typename">
-						<input type="text" class="form-control mr-3" name="username" placeholder="請輸入名字" th:unless="${session.currentUser}">
-						<span class="mr-3" th:if="${session.currentUser}"><h3 th:text="${session.currentUser.username}"></h3></span>
-						
-						<button type="submit" class="btn btn-primary">開始訓練</button>
-					</div>
-					 
+			<form action="vocabulary" class="form-inline form-center" method="post">
 
-				   <div class="d-flex my-3 py-3 justify-content-center">
-				   	<div class="btn-group btn-group-toggle" data-toggle="buttons">
-					  
-					   		<label class="btn btn-outline-secondary active rounded mr-3">
-					   		  <input type="radio" name="options" value="write-eng"  autocomplete="off" checked> 看中文拼寫英文
-					   		</label>
-					   		<label class="btn btn-outline-secondary rounded">
-					   		  <input type="radio" name="options" value="choose-chi" autocomplete="off"> 
-					   		  		  英文翻譯中文(選擇題)
-					   		</label>
-					   	
-					 </div>
-				   </div>
-				</form>
+				<div class="typename">
+					<input type="text" class="form-control mr-3" name="username" placeholder="請輸入名字" th:unless="${session.currentUser}">
+					<span class="mr-3" th:if="${session.currentUser}"><h3 th:text="${session.currentUser.username}"></h3></span>
+					
+					<button type="submit" class="btn btn-primary">開始訓練</button>
+				</div>
+				 
 
-	  			</div>
-	  		</div>
-		</div>
-	</main>
-	
+			   <div class="d-flex my-3 py-3 justify-content-center">
+			   	<div class="btn-group btn-group-toggle" data-toggle="buttons">
+				  
+				   		<label class="btn btn-outline-secondary active rounded mr-3">
+				   		  <input type="radio" name="options" value="write-eng"  autocomplete="off" checked> 看中文拼寫英文
+				   		</label>
+				   		<label class="btn btn-outline-secondary rounded">
+				   		  <input type="radio" name="options" value="choose-chi" autocomplete="off"> 
+				   		  		  英文翻譯中文(選擇題)
+				   		</label>
+				   	
+				 </div>
+			   </div>
+			</form>
+
+  			</div>
+  		</div>
+	</div>
+</main>
+
 
 </body>
 </html>
