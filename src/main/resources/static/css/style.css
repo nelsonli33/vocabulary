@@ -1,0 +1,253 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    background-color: #F5F5F5;
+    color: #898989;
+    font-size: 16px;
+    font-family: "微軟正黑體", Arial, sans-serif;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+}
+
+main {
+    flex-grow: 1;
+}
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+.img-center {
+    display: block;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 45%;
+    height: 50%;
+}
+
+
+.form-center {
+    display: block;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+.typename {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+
+.wrapper {
+    max-width: 680px;
+    margin: 30px auto;
+    padding: 0;
+}
+
+
+.box {
+    background-color: #fff;
+    box-shadow: 1px 1px 4px 1px #ccc;
+    width: 100%;
+    margin-bottom: 12px;
+    border-radius: 6px;
+    display: block;
+    text-align: left;
+}
+
+.box-title {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    height: 42px;
+}
+
+.table {
+    display: table;
+    border-collapse: separate;
+    border-spacing: 2px;
+}
+
+
+/************************************
+vocabulary register/login style
+************************************/
+#register {
+    max-width: 580px;
+    margin: 0 auto;
+    padding: 30px 0;
+}
+
+.form-title {
+    font-size: 2.3rem;
+    font-weight: 600;
+    color: black;
+    text-align: center;
+    padding-top: 15px;
+}
+
+.form-control {
+    background-color: #fbfbfb;
+}
+
+.btn-submit {
+    box-shadow: 2px 2px 4px -1px #ccc;
+    display: inline-block;
+    width: auto;
+    padding: 10px 40px;
+    border: 1px solid white;
+    background: #3498db;
+    color: white;
+    border-radius: 4px;
+    position: relative;
+    font-size: 1.2em;
+    cursor: pointer;
+    float: right;
+}
+
+
+#loginForm {
+    padding: 2em 3em;
+}
+
+#loginForm .form-control {
+    border: none;
+    margin: 15px 0;
+    height: 55px;
+    background-color: #efefef;
+}
+
+/************************************
+vocabulary write english style
+************************************/
+.username {
+    font-size: 1.5em;
+}
+
+
+.card {
+    /*background-image: url(images/volume-down.svg);
+    background-repeat: no-repeat;
+    background-size: 30px;
+    background-position: top right;	*/
+    padding: 40px;
+}
+
+
+.progress-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+
+#input-vocabulary {
+    display: block;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    border: none;
+    padding: 0;
+    width: 1.5ch;
+    background: repeating-linear-gradient(90deg,
+    dimgrey 0,
+    dimgrey 1ch,
+    transparent 0,
+    transparent 1.5ch) 0 100%/100% 2px no-repeat;
+    font: 5ch droid sans mono, consolas, monospace;
+    letter-spacing: 0.5ch;
+}
+
+#input-vocabulary:focus {
+    outline: none;
+}
+
+#score {
+    font-size: 16px;
+}
+
+
+/************************************
+user vocabulary statistic style
+************************************/
+
+.sidenav {
+    width: 180px;
+    position: fixed;
+    border: 1px solid black;
+    border-radius: 5px;
+    box-shadow: 0px 0px 7px 2px #dcdddf;;
+    z-index: 1;
+    top: 100px;
+    left: 10px;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+.sidenav a {
+    padding: 6px 8px 6px 0px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1.1rem;
+    color: #000000;
+    display: block;
+}
+
+.sidenav a:hover {
+    color: #ffffff;
+}
+
+.nav ul a {
+    color: rgba(255, 255, 255, .5);
+}
+
+.nav ul a:hover {
+    color: rgba(255, 255, 255, .75);
+}
+
+
+.fixed_header {
+    width: 100%;
+    table-layout: fixed;
+
+}
+
+.fixed_header tbody {
+    display: block;
+    width: 100%;
+    overflow: auto;
+    height: 400px;
+}
+
+.fixed_header thead tr {
+    display: block;
+}
+
+
+.fixed_header th, .fixed_header td {
+    padding: 13px;
+    width: 200px;
+}
