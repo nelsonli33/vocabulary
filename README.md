@@ -1,7 +1,12 @@
-# vocabulary
+# vocabulary 單字卡訓練應用
+https://safe-thicket-67943.herokuapp.com
 
-http://vocabularyeb-env.tvatuczgbm.us-east-2.elasticbeanstalk.com/
+## 使用技術
+* Bootstrap
+* jQuery
+* Freemarker
+* Spring Boot
+* Spring Security
+* Spring Data Jpa
+* Mysql
 
-## 技術
-- Html / Css、jQuery、ajax、Bootstrap
-- spring boot、spring mvc、mybatis、mysql
