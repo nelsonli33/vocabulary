@@ -52,7 +52,7 @@ public class DefaultVocabularyFacade implements VocabularyFacade {
             if (question.equalsIgnoreCase(answer)) {
                 vocabularyService.incrOneRightAmountForVocabulary(vocabulary.getId());
             } else {
-                vocabularyService.incrOneRightAmountForVocabulary(vocabulary.getId());
+                vocabularyService.incrOneWrongAmountForVocabulary(vocabulary.getId());
             }
         }
 
